@@ -1,0 +1,22 @@
+version: "3.8"
+services:
+  service-observability:
+    image: carloshh/spring-observability
+    container_name: spring-observability
+    ports:
+    - 8080:8080
+    environment:
+      ELASTIC_APM_SERVICE_NAME: spring-observability
+      ELASTIC_APM_SERVER_URLS: 'http://apm-server:8200'
+      ELASTIC_APM_CAPTURE_BODY: all
+      ELASTIC_APM_TRANSACTION_IGNORE_URLS: '/actuator/*'
+      ELASTIC_APM_TRANSACTION_SAMPLE_RATE: '1.0'
+      ELASTIC_APM_APPLICATION_PACKAGES: com.carloshh.poc
+      ELASTIC_APM_ENVIRONMENT: production
+    volumes:
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+
+networks:
+  default:
+    name: apm_elastic

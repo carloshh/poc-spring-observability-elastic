@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:7.14.1
+    hostname: "filebeat"
+    command: ["--strict.perms=false"]
+    user: root
+    volumes:
+      - ./filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      - /var/lib/docker:/var/lib/docker:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    depends_on:
+      - logstash
+
+  logstash:
+    image: logstash:7.14.1
+    volumes:
+      - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+
+networks:
+  default:
+    name: apm_elastic

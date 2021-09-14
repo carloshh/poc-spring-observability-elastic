@@ -14,20 +14,9 @@
 	<name>spring-observability</name>
 	<description>POC for testing Spring Boot observability with elasticsearch APM</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 		<elastic-apm.version>1.25.0</elastic-apm.version>
 	</properties>
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>io.opentelemetry</groupId>
-				<artifactId>opentelemetry-bom</artifactId>
-				<version>1.5.0</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -39,13 +28,9 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>io.opentelemetry</groupId>
-			<artifactId>opentelemetry-api</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>co.elastic.apm</groupId>
 			<artifactId>apm-agent-api</artifactId>
-			<version>1.25.0</version>
+			<version>${elastic-apm.version}</version>
 		</dependency>
 	</dependencies>
 
@@ -85,6 +70,9 @@
 				<artifactId>jib-maven-plugin</artifactId>
 				<version>3.1.4</version>
 				<configuration>
+					<from>
+						<image>openjdk:17-jdk-slim</image>
+					</from>
 					<to>
 						<image>carloshh/${project.build.finalName}</image>
 					</to>

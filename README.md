@@ -6,7 +6,7 @@ This proof of concept aims to validate the observability of a Spring application
 ### Requisites
 
 * Docker
-* Java 11
+* Java 17
 
 ### How to run
 
